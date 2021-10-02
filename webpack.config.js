@@ -9,7 +9,7 @@ const devConfig = isDevelopment
     ? {
           devServer: {
               static: {
-                  directory: path.join(__dirname, 'public'),
+                  directory: path.join(__dirname, 'assets'),
               },
               compress: true,
               port: 9000,
@@ -28,11 +28,17 @@ const devConfig = isDevelopment
 module.exports = {
     mode: isDevelopment ? 'development' : 'production',
     entry: {
-        game: './src/index.js',
+        app: './src/index.js',
     },
     output: {
-        filename: '[name].[hash].js',
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
+    },
+    resolve: {
+        alias: {
+            '@engine': path.resolve(__dirname, 'src/@engine'),
+            '@objects': path.resolve(__dirname, 'src/@objects'),
+        },
     },
     module: {
         rules: [
@@ -89,7 +95,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'R3F Game Base',
+            title: 'R3F Game Bootstrap',
             template: 'src/index.html',
         }),
         isDevelopment && new ReactRefreshWebpackPlugin(),

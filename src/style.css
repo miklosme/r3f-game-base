@@ -21,3 +21,11 @@
         -webkit-backface-visibility: hidden;
     }
 }
+
+@layer utilities {
+    .game-container {
+        margin: 100px auto;
+        height: 288px;
+        width: 320px;
+    }
+}

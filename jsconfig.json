@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@engine/*": ["./src/@engine/*"],
+        "@objects/*": ["./src/@objects/*"]
+      }
+    }
+  }
