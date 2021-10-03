@@ -26,3 +26,6 @@ const spriteSheets = {
 };
 
 export default spriteSheets;
+
+export const GRID_WIDTH = 19;
+export const GRID_HEIGHT = 19;

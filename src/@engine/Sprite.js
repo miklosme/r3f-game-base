@@ -2,9 +2,7 @@ import React, { forwardRef, memo, useMemo } from 'react';
 import * as THREE from 'three';
 import useAsset from './useAsset';
 import useSpriteSheetAnimation from './useSpriteSheetAnimation.js';
-
-// create geometry once and reuse
-const geometry = new THREE.PlaneBufferGeometry(2, 3);
+import { GRID_WIDTH, GRID_HEIGHT } from '../spriteSheets';
 
 export default memo(
     forwardRef(
@@ -29,6 +27,12 @@ export default memo(
             }
 
             const image = useAsset(spriteSheet.src);
+
+            const geometry = useMemo(() => {
+                const w = spriteSheet.width / GRID_WIDTH;
+                const h = spriteSheet.height / GRID_HEIGHT;
+                return new THREE.PlaneBufferGeometry(w, h);
+            }, [spriteSheet.width, spriteSheet.height]);
 
             const materialProps = useMemo(
                 () => ({
