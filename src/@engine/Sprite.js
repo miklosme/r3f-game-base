@@ -4,7 +4,7 @@ import useAsset from './useAsset';
 import useSpriteSheetAnimation from './useSpriteSheetAnimation.js';
 
 // create geometry once and reuse
-const geometry = new THREE.PlaneBufferGeometry(1, 1);
+const geometry = new THREE.PlaneBufferGeometry(2, 3);
 
 export default memo(
     forwardRef(
