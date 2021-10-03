@@ -7,7 +7,7 @@ export default function useSpriteSheetAnimation({ spriteSheet, spriteName, image
     const [clock] = useState(() => new THREE.Clock());
     const [startIndex] = useState(imageIndex);
 
-    useFrame(state => {
+    useFrame(() => {
         if (!textureRef.current) {
             return;
         }
