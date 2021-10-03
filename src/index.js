@@ -1,6 +1,6 @@
 import 'core-js';
 import './style.css';
 import ReactDOM from 'react-dom';
-import App from './Game';
+import Game from './Game';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Game />, document.getElementById('root'));

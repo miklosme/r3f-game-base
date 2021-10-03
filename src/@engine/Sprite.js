@@ -1,6 +1,7 @@
-import React, { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { forwardRef, memo, useMemo } from 'react';
 import * as THREE from 'three';
 import useAsset from './useAsset';
+import useSpriteSheetAnimation from './useSpriteSheetAnimation.js';
 
 // create geometry once and reuse
 const geometry = new THREE.PlaneBufferGeometry(1, 1);
@@ -9,33 +10,25 @@ export default memo(
     forwardRef(
         (
             {
-                src,
-
-                sheet = {
-                    default: [[0, 0]],
-                },
-
-                state = 'default',
-                frameWidth = 16,
-                frameHeight = 16,
-                frameTime = 200,
+                spriteSheet,
+                spriteName = 'default',
+                imageSpeed = 1, // 1 second per frame
+                imageIndex = 0,
                 scale = 1,
                 flipX = 1,
                 color = '#fff',
                 opacity = 1,
                 offset = { x: 0, y: 0 },
-                basic = true,
                 blending = THREE.NormalBlending,
                 magFilter = THREE.NearestFilter,
             },
             ref,
         ) => {
-            if (!sheet[state]) {
-                throw new Error(`Sprite state '${state}' does not exist in sheet '${src}'`);
+            if (!spriteSheet) {
+                throw new Error('SpriteSheet is required');
             }
 
-            const image = useAsset(src);
-            const textureRef = useRef();
+            const image = useAsset(spriteSheet.src);
 
             const materialProps = useMemo(
                 () => ({
@@ -53,8 +46,8 @@ export default memo(
             );
 
             const textureProps = useMemo(() => {
-                const columns = image.width / frameWidth;
-                const rows = image.height / frameHeight;
+                const columns = image.width / spriteSheet.width;
+                const rows = image.height / spriteSheet.height;
                 return {
                     image,
                     repeat: new THREE.Vector2(1 / columns, 1 / rows),
@@ -63,7 +56,14 @@ export default memo(
                     minFilter: THREE.LinearMipMapLinearFilter,
                     onUpdate: self => (self.needsUpdate = true),
                 };
-            }, [frameHeight, frameWidth, image, magFilter]);
+            }, [spriteSheet.height, spriteSheet.width, image, magFilter]);
+
+            const textureRef = useSpriteSheetAnimation({
+                spriteSheet,
+                spriteName,
+                imageSpeed,
+                imageIndex,
+            });
 
             return (
                 <mesh
@@ -72,15 +72,9 @@ export default memo(
                     scale={[flipX * scale, scale, 1]}
                     geometry={geometry}
                 >
-                    {basic ? (
-                        <meshBasicMaterial attach="material" {...materialProps}>
-                            <texture ref={textureRef} attach="map" {...textureProps} />
-                        </meshBasicMaterial>
-                    ) : (
-                        <meshLambertMaterial attach="material" {...materialProps}>
-                            <texture ref={textureRef} attach="map" {...textureProps} />
-                        </meshLambertMaterial>
-                    )}
+                    <meshBasicMaterial attach="material" {...materialProps}>
+                        <texture ref={textureRef} attach="map" {...textureProps} />
+                    </meshBasicMaterial>
                 </mesh>
             );
         },

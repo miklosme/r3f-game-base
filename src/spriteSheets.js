@@ -1,11 +1,14 @@
-const spriteData = {
+const spriteSheets = {
     wall: {
         src: './wall.png',
-        frameWidth: 19,
-        frameHeight: 19,
-        frameTime: 300,
+        width: 19,
+        height: 19,
+        // frameTime: 300,
         sheet: {
-            default: [[0, 0]],
+            default: [
+                [0, 0],
+                [5, 0],
+            ],
             // walk: [
             //     [1, 2],
             //     [2, 2],
@@ -18,4 +21,4 @@ const spriteData = {
     },
 };
 
-export default spriteData;
+export default spriteSheets;
