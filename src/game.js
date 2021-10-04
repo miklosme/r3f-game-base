@@ -14,10 +14,10 @@ const Game = () => {
             <Renderer className="game-container">
                 <AssetLoader urls={urls} placeholder={<HtmlOverlay>Loading...</HtmlOverlay>}>
                     <Player x={0} y={0} />
-                    <Wall x={0} y={0} />
-                    <Wall x={1} y={0} />
-                    <Wall x={2} y={0} />
-                    <Wall x={3} y={0} />
+                    <Wall x={0} y={2} />
+                    <Wall x={1} y={2} />
+                    <Wall x={2} y={2} />
+                    <Wall x={3} y={2} />
                 </AssetLoader>
             </Renderer>
         </>

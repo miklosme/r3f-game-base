@@ -17,7 +17,13 @@ export default function Player({ x, y }) {
 
     return (
         <GameObject displayName="Player" x={x} y={y} z={1}>
-            <Sprite spriteSheet={spriteSheets.player} color="#f1dc42" />
+            <Sprite
+                spriteSheet={spriteSheets.player}
+                color="#f1dc42"
+                imageSpeed={0.1}
+                spriteName={key ? 'run' : 'stand'}
+                flipX={key === 'a' ? 1 : -1}
+            />
         </GameObject>
     );
 }

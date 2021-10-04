@@ -15,7 +15,7 @@ const spriteSheets = {
         width: 38,
         height: 57,
         sheet: {
-            default: [[0, 2]],
+            stand: [[2,0]],
             run: [
                 [0, 1],
                 [1, 1],

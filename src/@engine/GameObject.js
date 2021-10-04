@@ -11,7 +11,7 @@ export default function GameObject({
     const [z, setZ] = useStateFromProp(props.z / 100 || 0);
     const node = useRef(null);
     return (
-        <group ref={node} position={[x, y, (-y + z) / 100]}>
+        <group ref={node} position={[x, -y, (y + z) / 100]}>
             {children}
         </group>
     );
